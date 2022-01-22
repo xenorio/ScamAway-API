@@ -4,12 +4,11 @@ const fetch = require('cross-fetch')
 const config = require('../config.js')
 
 module.exports.get = async(req, res) => {
-    if (!req.query.url) return res.status(400).json({
-        error: 'No URL provided'
+    if (!req.query.domain) return res.status(400).json({
+        error: 'No domain provided'
     })
 
-    let url = new URL(req.query.url)
-    let domain = url.hostname
+    let domain = req.query.domain
 
     // Check external domains first
     if (process.externalDomains.indexOf(domain) > -1) {
