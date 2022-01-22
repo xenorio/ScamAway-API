@@ -108,7 +108,7 @@ async function loadExternalDomains() {
         }
     })
 
-    process.externalDomains = response.body
+    process.externalDomains = await response.json()
 
 }
 
