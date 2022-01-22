@@ -101,14 +101,14 @@ async function init() {
 
 async function loadExternalDomains() {
 
-    let data = await fetch(config.external, {
+    let response = await fetch(config.external, {
         method: 'GET',
         headers: {
             'X-Identity': 'github.com/Xenorio/ScamAway-API'
         }
     })
 
-    process.externalDomains = JSON.parse(data)
+    process.externalDomains = response.body
 
 }
 
