@@ -108,7 +108,7 @@ async function loadExternalDomains() {
         }
     })
 
-    process.externalDomains = data
+    process.externalDomains = JSON.parse(data)
 
 }
 
