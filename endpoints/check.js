@@ -1,11 +1,11 @@
 const mongo = require('../handlers/mongo')
 
 module.exports.get = async(req, res) => {
-    if (!req.body.url) return res.status(400).json({
+    if (!req.query.url) return res.status(400).json({
         error: 'No URL provided'
     })
 
-    let url = new URL(req.body.url)
+    let url = new URL(req.query.url)
     let domain = url.hostname
 
     mongo.query('BlockedDomains', { domain: domain }, (data) => {
