@@ -3,12 +3,11 @@ const mongo = require('../handlers/mongo')
 module.exports.admin = true
 
 module.exports.post = async(req, res) => {
-    if (!req.body.url) return res.status(400).json({
-        error: 'No URL provided'
+    if (!req.body.domain) return res.status(400).json({
+        error: 'No domain provided'
     })
 
-    let url = new URL(req.body.url)
-    let domain = url.hostname
+    let domain = req.body.domain
 
     mongo.query('BlockedDomains', { domain: domain }, (data) => {
 
