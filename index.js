@@ -51,7 +51,7 @@ function loadEndpoints() {
         // Check authorization
         if(endpoint.admin){
             if(!req.headers.authorization || req.headers.authorization != config.key){
-                return res.status().json({
+                return res.status(401).json({
                     error: 'Unauthorized'
                 })
             }
