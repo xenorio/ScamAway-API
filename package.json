@@ -1,0 +1,27 @@
+{
+    "name": "scamaway-api",
+    "version": "1.0.0",
+    "description": "Backend for https://github.com/Xenorio/ScamAway",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Xenorio/ScamAway-API.git"
+    },
+    "author": "Xenorio",
+    "license": "SEE LICENSE IN LICENSE",
+    "bugs": {
+        "url": "https://github.com/Xenorio/ScamAway-API/issues"
+    },
+    "homepage": "https://github.com/Xenorio/ScamAway-API#readme",
+    "dependencies": {
+        "colors": "^1.4.0",
+        "cross-fetch": "^3.1.5",
+        "express": "^4.17.2",
+        "fs": "^0.0.1-security",
+        "hat": "^0.0.3",
+        "mongodb": "^4.3.1"
+    }
+}
