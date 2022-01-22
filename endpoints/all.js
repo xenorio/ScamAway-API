@@ -2,7 +2,7 @@ const mongo = require('../handlers/mongo')
 
 module.exports.get = async(req, res) => {
 
-    mongo.query('BlockedDomains', { domain: domain }, (data) => {
+    mongo.query('BlockedDomains', {}, (data) => {
 
         let list = []
 
