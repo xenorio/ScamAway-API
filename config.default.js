@@ -21,6 +21,6 @@ module.exports = {
 
     // API for external domain checking
     // Do not change if you don't know what you're doing
-    external: 'https://phish.sinking.yachts/v2/check/'
+    external: 'https://phish.sinking.yachts/v2/all'
 
 }

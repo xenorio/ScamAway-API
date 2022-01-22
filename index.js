@@ -1,6 +1,7 @@
 const fs = require('fs')
 const colors = require('colors')
 const express = require('express')
+const fetch = require('cross-fetch')
 
 console.log(`${colors.brightMagenta(`
 8""""8                    8""""8                       
@@ -90,10 +91,24 @@ async function init() {
 
     await loadConfig()
     loadEndpoints()
+    loadExternalDomains()
 
     app.listen(config.port, () => {
         log(`Listening on port ${config.port}`)
     })
+
+}
+
+async function loadExternalDomains() {
+
+    let data = await fetch(config.external, {
+        method: 'GET',
+        headers: {
+            'X-Identity': 'github.com/Xenorio/ScamAway-API'
+        }
+    })
+
+    process.externalDomains = data
 
 }
 

@@ -11,17 +11,11 @@ module.exports.get = async(req, res) => {
     let url = new URL(req.query.url)
     let domain = url.hostname
 
-    // Check external API first
-    let externalResponse = await fetch(config.external + domain, {
-        method: 'GET',
-        headers: {
-            'X-Identity': 'github.com/Xenorio/ScamAway-API'
-        }
-    })
-
-    if (externalResponse == 'true') {
+    // Check external domains first
+    if (process.externalDomains.indexOf(domain) > -1) {
         res.json({
-            blocked: true
+            blocked: true,
+            reason: 'Checked externally'
         })
         return
     }
