@@ -17,6 +17,10 @@ module.exports = {
 
     // API key for authorizing admin actions
     // Do NOT give this to anyone!
-    key: 'changeme'
+    key: 'changeme',
+
+    // API for external domain checking
+    // Do not change if you don't know what you're doing
+    external: 'https://phish.sinking.yachts/v2/check/'
 
 }
