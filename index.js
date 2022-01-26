@@ -2,6 +2,7 @@ const fs = require('fs')
 const colors = require('colors')
 const express = require('express')
 const fetch = require('cross-fetch')
+const { setInterval } = require('timers/promises')
 
 console.log(`${colors.brightMagenta(`
 8""""8                    8""""8                       
@@ -96,6 +97,8 @@ async function init() {
     app.listen(config.port, () => {
         log(`Listening on port ${config.port}`)
     })
+
+    setInterval(loadExternalDomains, config.refreshInterval * 60000) // Minutes => Milliseconds
 
 }
 

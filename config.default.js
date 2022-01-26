@@ -21,6 +21,10 @@ module.exports = {
 
     // API for external domain checking
     // Do not change if you don't know what you're doing
-    external: 'https://phish.sinking.yachts/v2/all'
+    external: 'https://phish.sinking.yachts/v2/all',
+
+    // How often the external domain list should be refreshed (minutes)
+    // Please keep this as high as possible. No reason to go lower than default, just puts unnecessary strain on the API.
+    refreshInterval: 60
 
 }
