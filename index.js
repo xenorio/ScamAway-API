@@ -161,7 +161,7 @@ async function refreshExternalDomains() {
                 counts.add += 1
                 break;
 
-            case 'remove':
+            case 'delete':
                 process.externalDomains = process.externalDomains.filter(e => entry.domains.indexOf(e) <= -1)
                 counts.remove += 1
                 break;
