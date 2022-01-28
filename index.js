@@ -173,7 +173,7 @@ async function refreshExternalDomains() {
 
     }
 
-    log(`Added ${colors.bold(counts.add)} domains and removed ${colors.bold(counts.remove)}`)
+    if(counts.add > 0 || counts.remove > 0)log(`Added ${colors.bold(counts.add)} domains and removed ${colors.bold(counts.remove)}`)
 
 }
 
