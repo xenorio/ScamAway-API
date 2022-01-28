@@ -2,7 +2,6 @@ const fs = require('fs')
 const colors = require('colors')
 const express = require('express')
 const fetch = require('cross-fetch')
-const { setInterval } = require('timers/promises')
 
 console.log(`${colors.brightMagenta(`
 8""""8                    8""""8                       
@@ -20,6 +19,8 @@ process.log = log
 
 var config
 var app = express()
+
+var lastAPIUpdate
 
 app.use(express.json())
 
@@ -98,20 +99,72 @@ async function init() {
         log(`Listening on port ${config.port}`)
     })
 
-    setInterval(loadExternalDomains, config.refreshInterval * 60000) // Minutes => Milliseconds
+    setInterval(refreshExternalDomains, config.refreshInterval * 60000) // Minutes => Milliseconds
 
 }
 
 async function loadExternalDomains() {
 
-    let response = await fetch(config.external, {
+    let response = await fetch(config.external + '/all', {
         method: 'GET',
         headers: {
             'X-Identity': 'github.com/Xenorio/ScamAway-API'
         }
     })
 
+    lastAPIUpdate = Date.now()
+
     process.externalDomains = await response.json()
+
+    log('Loaded external domains')
+
+}
+
+// Get latest changes to blocklist
+async function refreshExternalDomains() {
+
+    log('Refreshing blocklist')
+
+    dt = Math.round((Date.now() - lastAPIUpdate) / 1000)
+
+    let response = await fetch(config.external + `/recent/${dt}`, {
+        method: 'GET',
+        headers: {
+            'X-Identity': 'github.com/Xenorio/ScamAway-API'
+        }
+    })
+
+    lastAPIUpdate = Date.now()
+
+    let data = await response.json()
+
+    let counts = {
+        add: 0,
+        remove: 0
+    }
+
+    for (let entry in data) {
+        entry = data[entry]
+
+        switch (entry.type) {
+            case 'add':
+                process.externalDomains = process.externalDomains.concat(entry.domains)
+                counts.add += 1
+                break;
+
+            case 'remove':
+                process.externalDomains = process.externalDomains.filter(e => entry.domains.indexOf(e) <= -1)
+                counts.remove += 1
+                break;
+        
+            default:
+                log(`Unknown API entry type ${colors.bold(entry.type)}`, 'WARN')
+                break;
+        }
+
+    }
+
+    log(`Added ${colors.bold(counts.add)} domains and removed ${colors.bold(counts.remove)}`)
 
 }
 
