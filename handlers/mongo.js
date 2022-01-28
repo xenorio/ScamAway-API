@@ -4,7 +4,7 @@ var MongoClient = require('mongodb').MongoClient;
 
 const server = config.database;
 
-const db_name = 'ScamAway'
+const db_name = config.databaseName
 
 module.exports.insertObject = (collection, obj, cb) => {
 

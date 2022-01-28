@@ -2,6 +2,7 @@ const fs = require('fs')
 const colors = require('colors')
 const express = require('express')
 const fetch = require('cross-fetch')
+const mongo = require('./handlers/mongo')
 
 console.log(`${colors.brightMagenta(`
 8""""8                    8""""8                       
@@ -94,6 +95,7 @@ async function init() {
     await loadConfig()
     loadEndpoints()
     loadExternalDomains()
+    loadLocalDomains()
 
     app.listen(config.port, () => {
         log(`Listening on port ${config.port}`)
@@ -101,6 +103,13 @@ async function init() {
 
     setInterval(refreshExternalDomains, config.refreshInterval * 60000) // Minutes => Milliseconds
 
+}
+
+async function loadLocalDomains() {
+    mongo.query('BlockedDomains', {}, res => {
+        process.localDomains = res
+        log('Loaded local domains')
+    })
 }
 
 async function loadExternalDomains() {

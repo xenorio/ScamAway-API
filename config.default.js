@@ -9,6 +9,9 @@ module.exports = {
     // Connection string for MongoDB database
     database: 'mongodb://localhost:27017/',
 
+    // Name of the database
+    databaseName: 'ScamAway',
+
     // URL to API documentation
     docs: 'https://github.com/Xenorio/ScamAway-API/wiki',
 
