@@ -19,7 +19,10 @@ module.exports.post = async(req, res) => {
                 "title": "New Report",
                 "description": req.body.url,
                 "color": 255,
-                "timestamp": new Date().toISOString()
+                "timestamp": new Date().toISOString(),
+                "author": {
+                    "name": req.body.user || 'Unknown'
+                }
             }]
         })
     })
