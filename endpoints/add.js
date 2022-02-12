@@ -11,10 +11,7 @@ module.exports.post = async(req, res) => {
         error: 'Invalid domain'
     })
 
-    // Parse out root domain (without subdomains)
-    // I know this is sketchy, but it works, so leave me alone
-    let domain = req.body.domain.split('.')
-    domain = domain[domain.length - 2] + '.' + domain[domain.length - 1]
+    let domain = req.body.domain
 
     if (process.localDomains.find(x => domain.endsWith(x.domain))) return res.status(400).json({
         error: 'Domain is already being blocked'
