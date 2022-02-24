@@ -8,6 +8,9 @@
 
 // You should have received a copy of the GNU Affero General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+const fetch = require('cross-fetch')
+const config = require('../config')
+
 module.exports.get = async(req, res) => {
     if (!req.query.domain) return res.status(400).json({
         error: 'No domain provided'
@@ -26,9 +29,27 @@ module.exports.get = async(req, res) => {
     } else if (process.externalDomains.find(x => domain == x || domain.endsWith('.' + x))) { // Check external domains
         res.json({
             blocked: true,
-            reason: 'Checked externally'
+            reason: 'Checked externally [phish.yinking.yachts]'
         })
     } else {
+
+        // Check Google safe browsing
+        // Documentation: https://gist.github.com/simoniz0r/2189e5b8284a33796778fdf8bbef48f4
+        if (config.gsb) {
+            let response = await fetch(`https://transparencyreport.google.com/transparencyreport/api/v3/safebrowsing/status?site=${domain}`)
+
+            let data = JSON.parse((await response.text()).split('\n')[2])[0]
+
+            if (data[1] == 2 || data[3] == 1 || data[4] == 1) {
+                res.json({
+                    blocked: true,
+                    reason: 'Checked externally [Google Safe Browsing]'
+                })
+                return
+            }
+        }
+
+        // All checks passed
         res.json({
             blocked: false
         })
