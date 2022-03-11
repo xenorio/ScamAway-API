@@ -32,22 +32,6 @@ module.exports.get = async(req, res) => {
             reason: 'Checked externally [phish.yinking.yachts]'
         })
     } else {
-
-        // Check Google safe browsing
-        // Documentation: https://gist.github.com/simoniz0r/2189e5b8284a33796778fdf8bbef48f4
-        if (config.gsb && req.query.url) {
-            let response = await fetch(`https://transparencyreport.google.com/transparencyreport/api/v3/safebrowsing/status?site=${req.query.url}`)
-
-            let data = JSON.parse((await response.text()).split('\n')[2])[0]
-            if (data[1] == 2 || data[3] == 1 || data[4] == 1) {
-                res.json({
-                    blocked: true,
-                    reason: 'Checked externally [Google Safe Browsing]'
-                })
-                return
-            }
-        }
-
         // All checks passed
         res.json({
             blocked: false

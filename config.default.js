@@ -27,10 +27,6 @@ module.exports = {
     external: 'https://phish.sinking.yachts/v2',
 
     // How often the external domain list should be refreshed (minutes)
-    refreshInterval: 5,
-
-    // Whether Google Safe Browsing integration is enabled
-    // This is an experimental feature
-    gsb: false
+    refreshInterval: 5
 
 }
