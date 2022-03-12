@@ -17,6 +17,10 @@ module.exports.post = async(req, res) => {
         error: 'No URL provided'
     })
 
+    if (!req.body.user) return res.status(400).json({
+        error: 'No user provided | If not reporting through Discord, please provide something identifying'
+    })
+
     // Send WebHook with embed to specified Discord channel
     fetch(config.reporthook, {
         method: 'POST',
