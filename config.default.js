@@ -13,7 +13,7 @@ module.exports = {
     databaseName: 'ScamAway',
 
     // URL to API documentation
-    docs: 'https://github.com/Xenorio/ScamAway-API/wiki',
+    docs: 'https://scamaway.xenorio.xyz',
 
     // Discord webhook for reports
     reporthook: 'https://discord.com/api/webhooks/...',

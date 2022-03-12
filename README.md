@@ -3,6 +3,8 @@
 # ScamAway API
 The Anti-Phishing Discord Bot API
 
+[Documentation](https://scamaway.xenorio.xyz)
+
 ## What's this?
 This is the backend for the [ScamAway](https://github.com/Xenorio/ScamAway/) Discord bot
 
