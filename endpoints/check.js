@@ -8,9 +8,6 @@
 
 // You should have received a copy of the GNU Affero General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-const fetch = require('cross-fetch')
-const config = require('../config')
-
 module.exports.get = async(req, res) => {
     if (!req.query.domain) return res.status(400).json({
         error: 'No domain provided'
