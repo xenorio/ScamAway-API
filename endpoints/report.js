@@ -10,6 +10,7 @@
 
 const config = require('../config.js')
 const fetch = require('cross-fetch')
+const extractUrls = require("extract-urls");
 
 module.exports.post = async(req, res) => {
 
@@ -19,6 +20,12 @@ module.exports.post = async(req, res) => {
 
     if (!req.body.user) return res.status(400).json({
         error: 'No user provided | If not reporting through Discord, please provide something identifying'
+    })
+
+    let URLs = extractUrls(req.body.url)
+
+    if (!URLs || !URLs[0]) return res.status(400).json({
+        error: 'Invalid URL'
     })
 
     // Send WebHook with embed to specified Discord channel
@@ -31,7 +38,7 @@ module.exports.post = async(req, res) => {
         body: JSON.stringify({
             "embeds": [{
                 "title": "New Report",
-                "description": req.body.url,
+                "description": URLs[0],
                 "color": 255,
                 "timestamp": new Date().toISOString(),
                 "author": {
