@@ -32,6 +32,8 @@ module.exports.post = async(req, res) => {
     // Remove from domain cache
     process.localDomains = process.localDomains.filter(x => x.domain != domain)
 
-    res.send('Success')
+    res.json({
+        success: true
+    })
 
 }

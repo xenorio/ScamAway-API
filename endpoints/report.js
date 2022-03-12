@@ -48,6 +48,8 @@ module.exports.post = async(req, res) => {
         })
     })
 
-    res.send('Success')
+    res.json({
+        success: true
+    })
 
 }
