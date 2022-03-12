@@ -13,7 +13,7 @@ It is not recommended to host this yourself, unless you want to handle reported 
 - Clone the repository
 - Install dependencies with ``npm install``
 - Configure ``config.default.js``
-- Start the server with ``node index.js``
+- Start the server with ``npm start``
 
 ## Support
 For support and general talk about this project, head to the [Discord server](https://discord.xenorio.xyz)
