@@ -19,7 +19,9 @@ var stats = {
 }
 
 async function save() {
-    mongo.update('Misc', { name: 'Stats' }, { value: stats }, () => { process.log('Stats saved') })
+    let update = stats
+    delete update.domains
+    mongo.update('Misc', { name: 'Stats' }, { value: update }, () => { process.log('Stats saved') })
 }
 
 async function load() {
@@ -30,7 +32,7 @@ async function load() {
         })
 
         for (key in res[0].value) {
-            stats[key] = res[0].value[key]
+            if (key != 'domains') stats[key] = res[0].value[key]
         }
 
     })
