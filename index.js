@@ -13,6 +13,7 @@ const colors = require('colors')
 const express = require('express')
 const fetch = require('cross-fetch')
 const mongo = require('./handlers/mongo')
+const stats = require('./handlers/stats')
 
 console.log(`${colors.brightMagenta(`
 8""""8                    8""""8                       
@@ -103,6 +104,7 @@ function loadEndpoints() {
 async function init() {
 
     await loadConfig()
+    await stats.init()
     loadEndpoints()
     loadExternalDomains()
     loadLocalDomains()
@@ -118,6 +120,7 @@ async function init() {
 async function loadLocalDomains() {
     mongo.query('BlockedDomains', {}, res => {
         process.localDomains = res
+        stats.set({domains: stats.get().domains + process.localDomains.length})
         log('Loaded local domains')
     })
 }
@@ -134,6 +137,7 @@ async function loadExternalDomains() {
     lastAPIUpdate = Date.now()
 
     process.externalDomains = await response.json()
+    stats.set({domains: stats.get().domains + process.externalDomains.length})
 
     log('Loaded external domains')
 

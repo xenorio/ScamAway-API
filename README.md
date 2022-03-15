@@ -31,6 +31,7 @@ Projects being used:
 - [mongodb](https://github.com/mongodb/node-mongodb-native)
 - [extract-urls](https://github.com/huckbit/extract-urls)
 - [node-hat](https://github.com/substack/node-hat)
+- [ms](https://github.com/vercel/ms)
 
 External API:
 - [phish.sinking.yachts](https://phish.sinking.yachts/docs)

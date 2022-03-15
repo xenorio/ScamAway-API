@@ -39,6 +39,8 @@ module.exports.post = async(req, res) => {
     // Add to local cache
     process.localDomains.push(entry)
 
+    stats.set({ domains: stats.get().domains + 1 })
+
     res.json({
         success: true
     })
