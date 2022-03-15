@@ -19,9 +19,7 @@ var stats = {
 }
 
 async function save() {
-    let update = stats
-    delete update.domains
-    mongo.update('Misc', { name: 'Stats' }, { value: update }, () => { process.log('Stats saved') })
+    mongo.update('Misc', { name: 'Stats' }, { value: stats }, () => { process.log('Stats saved') })
 }
 
 async function load() {
