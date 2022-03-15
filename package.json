@@ -21,7 +21,6 @@
         "cross-fetch": "^3.1.5",
         "express": "^4.17.2",
         "extract-urls": "^1.3.2",
-        "fs": "^0.0.1-security",
         "hat": "^0.0.3",
         "mongodb": "^4.3.1"
     }
