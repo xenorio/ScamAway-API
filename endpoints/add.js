@@ -11,6 +11,7 @@
 const mongo = require('../handlers/mongo')
 const stats = require('../handlers/stats')
 const fetch = require('cross-fetch')
+const colors = require('colors')
 
 const config = require('../config')
 
@@ -45,6 +46,7 @@ module.exports.post = async(req, res) => {
 
     // Report to Fish Fish
     if (req.body.forward && config.reportForwardKey) {
+        process.log(`Forwarding ${colors.cyan(req.body.forward)} to Fish Fish`)
         fetch('https://yuri.bots.lostluma.dev/phish/report', {
             method: 'POST',
             headers: {
