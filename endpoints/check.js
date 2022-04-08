@@ -44,7 +44,7 @@ module.exports.get = async(req, res) => {
 
         res.json({
             blocked: true,
-            reason: 'Checked externally [phish.yinking.yachts]'
+            reason: 'Checked externally [phish.sinking.yachts]'
         })
     } else {
         // All checks passed
