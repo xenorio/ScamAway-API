@@ -30,6 +30,10 @@ module.exports = {
     refreshInterval: 5,
 
     // Whether or not clients should be forced to identify themselves (User-Agent Header)
-    forceIdentification: false
+    forceIdentification: false,
+
+    // In order to use report forwarding, you need to be a member of the Fish Fish project and put your API key here
+    // If you don't know what that is, just leave this alone
+    reportForwardKey: ""
 
 }

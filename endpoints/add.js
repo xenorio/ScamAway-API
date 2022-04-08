@@ -10,6 +10,9 @@
 
 const mongo = require('../handlers/mongo')
 const stats = require('../handlers/stats')
+const fetch = require('cross-fetch')
+
+const config = require('../config')
 
 module.exports.admin = true
 
@@ -39,6 +42,21 @@ module.exports.post = async(req, res) => {
 
     // Add to local cache
     process.localDomains.push(entry)
+
+    // Report to Fish Fish
+    if (req.body.forward && config.reportForwardKey) {
+        fetch('https://yuri.bots.lostluma.dev/phish/report', {
+            method: 'POST',
+            headers: {
+                'Authorization': config.reportForwardKey,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                url: req.body.forward,
+                reason: req.body.reason
+            })
+        })
+    }
 
     stats.set({ domains: stats.get().domains + 1 })
 
