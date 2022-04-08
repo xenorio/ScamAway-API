@@ -53,12 +53,12 @@ function loadEndpoints() {
 
         let identifier = "Anonymous"
 
-        if (req.headers['user-agent'] && req.headers['user-agent'] != "null") {
-            identifier = req.headers['user-agent']
+        if (req.headers['x-identity'] && req.headers['x-identity'] != "null") {
+            identifier = req.headers['x-identity']
         } else if (config.forceIdentification) {
             log(`Blocked unidentified request: [${colors.yellow(ip)}] ${colors.green(req.method)} ${colors.cyan(requestPath)}`)
             res.status(401).json({
-                error: 'Please provide identification using the User-Agent header'
+                error: 'Please provide identification using the X-Identity header'
             })
             return
         }
