@@ -51,7 +51,19 @@ function loadEndpoints() {
         let requestPath = req.originalUrl.split(config.path)[1].split('?')[0] // Parse endpoint path from URL
         let endpoint
 
-        log(`[${colors.yellow(ip)}] ${colors.green(req.method)} ${colors.cyan(requestPath)}`)
+        let identifier = "Anonymous"
+
+        if (req.headers['user-agent'] && req.headers['user-agent'] != "null") {
+            identifier = req.headers['user-agent']
+        } else if (config.forceIdentification) {
+            log(`Blocked unidentified request: [${colors.yellow(ip)}] ${colors.green(req.method)} ${colors.cyan(requestPath)}`)
+            res.status(401).json({
+                error: 'Please provide identification using the User-Agent header'
+            })
+            return
+        }
+
+        log(`[${colors.yellow(ip)}] <${colors.magenta(identifier)}> ${colors.green(req.method)} ${colors.cyan(requestPath)}`)
 
         try {
             endpoint = require(`./endpoints${requestPath}`) // Load endpoint

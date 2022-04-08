@@ -27,6 +27,9 @@ module.exports = {
     external: 'https://phish.sinking.yachts/v2',
 
     // How often the external domain list should be refreshed (minutes)
-    refreshInterval: 5
+    refreshInterval: 5,
+
+    // Whether or not clients should be forced to identify themselves (User-Agent Header)
+    forceIdentification: false
 
 }
