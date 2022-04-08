@@ -53,7 +53,7 @@ function loadEndpoints() {
 
         let identifier = "Anonymous"
 
-        if (req.headers['x-identity'] && req.headers['x-identity'] != "null") {
+        if (req.headers['x-identity'] && req.headers['x-identity'] != "null" && req.headers['x-identity'] != "undefined") {
             identifier = req.headers['x-identity']
         } else if (config.forceIdentification) {
             log(`Blocked unidentified request: [${colors.yellow(ip)}] ${colors.green(req.method)} ${colors.cyan(requestPath)}`)
