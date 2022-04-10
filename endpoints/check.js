@@ -9,6 +9,7 @@
 // You should have received a copy of the GNU Affero General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 const stats = require('../handlers/stats')
+const colors = require('colors')
 
 module.exports.get = async(req, res) => {
     if (!req.query.domain) return res.status(400).json({
@@ -18,6 +19,8 @@ module.exports.get = async(req, res) => {
     stats.set({ checks: stats.get().checks + 1 })
 
     let domain = req.query.domain.toLowerCase()
+
+    process.log(`Checking ${colors.cyan(domain)}`)
 
     let currentStats = stats.get()
 

@@ -118,6 +118,7 @@ async function init() {
     await loadConfig()
     await stats.init()
     loadEndpoints()
+    loadWhitelist()
     loadExternalDomains()
     loadLocalDomains()
 
@@ -127,6 +128,13 @@ async function init() {
 
     setInterval(refreshExternalDomains, config.refreshInterval * 60000) // Minutes => Milliseconds
 
+}
+
+async function loadWhitelist() {
+    mongo.query('Whitelist', {}, res => {
+        process.whitelist = res
+        log('Loaded whitelist')
+    })
 }
 
 async function loadLocalDomains() {

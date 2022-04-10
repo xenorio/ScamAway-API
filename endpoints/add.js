@@ -38,14 +38,19 @@ module.exports.post = async(req, res) => {
         timestamp: Date.now()
     }
 
-    // Add to database
-    mongo.insertObject('BlockedDomains', entry)
-
-    // Add to local cache
-    process.localDomains.push(entry)
+    if (req.body.whitelist) {
+        // Whitelist domain
+        mongo.insertObject('Whitelist', entry)
+        process.whitelist.push(entry)
+    } else {
+        // Block domain
+        mongo.insertObject('BlockedDomains', entry)
+        process.localDomains.push(entry)
+        stats.set({ domains: stats.get().domains + 1 })
+    }
 
     // Report to Fish Fish
-    if (req.body.forward && config.reportForwardKey) {
+    if (!req.body.whitelist && req.body.forward && config.reportForwardKey) {
         process.log(`Forwarding ${colors.cyan(req.body.forward)} to Fish Fish`)
         fetch('https://yuri.bots.lostluma.dev/phish/report', {
             method: 'POST',
@@ -59,8 +64,6 @@ module.exports.post = async(req, res) => {
             })
         })
     }
-
-    stats.set({ domains: stats.get().domains + 1 })
 
     res.json({
         success: true
