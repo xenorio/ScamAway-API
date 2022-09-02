@@ -16,11 +16,15 @@ module.exports.get = async(req, res) => {
         error: 'No domain provided'
     })
 
-    stats.set({ checks: stats.get().checks + 1 })
+    let domain = req.query.domain.toLowerCase().trim()
 
-    let domain = req.query.domain.toLowerCase()
+    if (domain.includes(" ") || !domain.includes('.')) return res.status(400).json({
+        error: 'Invalid domain'
+    })
 
     process.log(`Checking ${colors.cyan(domain)}`)
+
+    stats.set({ checks: stats.get().checks + 1 })
 
     let currentStats = stats.get()
 
