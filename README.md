@@ -5,6 +5,16 @@ The Anti-Phishing Discord Bot API
 
 [Documentation](https://scamaway.xenorio.xyz)
 
+## Archival Notice
+
+As Discord has now finally taken the decision of disabling my main account for no reason whatsoever, I have decided to step away from it completely.
+This includes not developing any software for it anymore.
+
+You can still use ScamAway if you host both the bot and the API yourself, it will just not get any further updates whatsoever, not even security related
+
+Feel free to fork the project and keep developing it!
+
+
 ## What's this?
 This is the backend for the [ScamAway](https://github.com/Xenorio/ScamAway/) Discord bot
 
